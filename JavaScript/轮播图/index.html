@@ -1,0 +1,146 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-23 15:02:45
+ * @LastEditTime: 2020-04-26 09:45:36
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \node.js\Html\index.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小潘的轮播图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        img {
+            width: 700px;
+            height: 400px;
+        }
+        #box {
+            width: 700px;
+            height: 400px;
+            position: relative;
+            margin: 0 auto;
+        }
+        .bj {
+            position: absolute;
+            width: 30px;
+            height: 60px;
+            background-color: rgba(0,0,0,0.2);
+            color: #fff;
+            font-size: 20px;
+            line-height: 60px;
+            text-align: center;
+            display: none;/*鼠标进来前隐藏*/
+            top:160px;
+        }
+        #left {
+            left: 0;
+        }
+        #right {
+            right: 0;
+            
+        }
+        #list {
+            position: absolute;
+            list-style: none;
+            bottom: 10px;
+            left: 250px;
+        }
+        #list li {
+            float: left;
+            margin-left: 20px;
+            width: 20px;
+            background-color: #aaa;
+            border-radius: 50%;/*圆角*/
+            text-align: center;
+            line-height: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="box">
+        <img src="./img/1.jpg" alt="">
+        <ul id="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+        <div id="left" class="bj"> < </div>
+        <div id="right" class="bj"> > </div>
+    </div>
+    <script>
+        var box = document.getElementById("box");
+        var img = document.getElementsByTagName("img")[0];
+        var left = document.getElementById("left")
+        var right = document.getElementById("right")
+        var list = document.getElementsByTagName("li");
+        list[0].style.backgroundColor = '#33FFFF';
+        //设置一个定时器
+        function pageVary (flag=1) {
+            if (flag)
+                page++;
+            else
+                page--;
+            page = page > 4 ? 1 : page;
+            page = page == 0 ? 4 : page;
+            img.src = './img/' + page + '.jpg';
+            for (var j = 0; j < 4; j++)
+                if (j+1 - page)
+                    list[j].style.backgroundColor = '#aaa';
+                else
+                    list[j].style.backgroundColor = '#33FFFF';
+        }
+        var page = 1;
+        var timer = setInterval(pageVary, 1500);
+        //鼠标进入定时器停止
+        box.addEventListener("mouseover", function() {
+            clearInterval(timer);
+            left.style.display = "block";
+            right.style.display = "block";
+        },false);
+        box.addEventListener("mouseout", function() {
+            timer = setInterval(pageVary,1500);
+            left.style.display = "none";
+            right.style.display = "none";
+        },false);
+        for(var  i = 0; i < 4; i++) {
+            list[i].addEventListener("mouseover", function() {
+                for (var j = 0; j < 4; j++)
+                    if (j - i)
+                        list[j].style.backgroundColor = '#aaa';
+                this.style.backgroundColor = '#33FFFF';
+                // page = i + 1;
+                page = this.innerHTML;
+                img.src = './img/' + page + '.jpg';
+            }, false);
+            
+        }
+        left.addEventListener("mouseover" , function() {
+            this.style.backgroundColor = "rgba(0,0,0,0.6)";
+        })
+        left.addEventListener("mouseout" , function() {
+            this.style.backgroundColor = "rgba(0,0,0,0.2)";
+        })
+        right.addEventListener("mouseover" , function() {
+            this.style.backgroundColor = "rgba(0,0,0,0.6)";
+        })
+        right.addEventListener("mouseout" , function() {
+            this.style.backgroundColor = "rgba(0,0,0,0.2)";
+        })
+        left.addEventListener("click" , function() {
+            pageVary (0);
+        })
+        right.addEventListener("click" , function() {
+            pageVary ();
+        })
+    </script>
+</body>
+</html>
