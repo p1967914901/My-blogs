@@ -1,0 +1,52 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-28 10:46:35
+ * @LastEditTime: 2020-06-05 16:25:35
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \test\index.html
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>testD3_chp14_1.html</title>
+
+	<!-- <script src="./lib/vue .js"></script> -->
+	<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+
+</head>
+
+<body>
+	<div id="app">
+		{{f}}
+		<br>
+		<hr>
+		{{ff()}}
+	</div>
+
+	<script>
+		var k = 10;
+		var app = new Vue({
+			el: '#app',
+			data: {
+				a: 5,
+				b: 1
+			},
+			computed: {
+				f() {
+					console.log("f");
+					return this.a + this.b + k;
+				}
+			},
+			methods: {
+				ff() {
+					console.log("ff");
+					return this.a + this.b + k;
+				}
+			}
+		})
+	</script>
+</body>
+
+</html>
